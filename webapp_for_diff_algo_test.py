@@ -16,7 +16,6 @@ def get_datasets(select_dataset):
     """
     Load the appropriate dataset according to the dataset selected by the user in the sidebar.
 
-    :rtype: 2 object X and y which contains features and target variables.
     """
     if select_dataset == 'Iris Dataset':
         dataset = datasets.load_iris()
@@ -35,6 +34,9 @@ def get_datasets(select_dataset):
 
 
 def clf_parameter(classifier_name):
+    """
+    To select the paramters according to the classifier selected.
+    """
     param = dict()
     if classifier_name == "KNN":
         K = st.sidebar.slider("K", 1, 15)
@@ -51,6 +53,9 @@ def clf_parameter(classifier_name):
 
 
 def get_classifier(classifier_name, params):
+    """
+    This programs trains the classifier on selected params in the above function.
+    """
     if classifier_name == "KNN":
         clf = KNeighborsClassifier(n_neighbors=params["K"])
     elif classifier_name == "SVM":
@@ -61,7 +66,10 @@ def get_classifier(classifier_name, params):
     return clf
 
 def getPCA(df):
-    pca = PCA(2)
+    """
+    To Draw PCA with 2 components
+    """
+    pca = PCA(n_components = 2)
     x_pca = pca.fit_transform(df.loc[:,df.columns != 'Type'])
 
     df['pca-1'] = x_pca[:, 0]
